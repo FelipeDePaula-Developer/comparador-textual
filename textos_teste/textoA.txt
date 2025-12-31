@@ -1,0 +1,2 @@
+A análise de documentos permite identificar semelhanças textuais.
+Essa técnica é usada em sistemas de detecção de plágio e recuperação de informação.
