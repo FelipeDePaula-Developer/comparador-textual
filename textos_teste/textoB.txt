@@ -1,2 +1,0 @@
-A comparação de textos é uma técnica utilizada para identificar semelhanças entre documentos.
-Este método é amplamente aplicado em detecção de plágio e recuperação da informação.
