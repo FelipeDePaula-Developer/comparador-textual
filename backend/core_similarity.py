@@ -52,6 +52,9 @@ def compare_texts_tfidf_cosine(
     a = normalize_text(text_a)
     b = normalize_text(text_b)
 
+    if not a or not b:
+        raise ValueError("Os textos devem conter caracteres legíveis após a normalização.")
+
     vectorizer = TfidfVectorizer(
         max_features=max_features,
         ngram_range=ngram_range,
@@ -78,8 +81,14 @@ def compare_texts_tfidf_cosine(
     sents_b = split_sentences(text_b)
 
     # vetorização por sentença (mesmo vocabulário para comparabilidade)
-    sents_a_n = [normalize_text(x) for x in sents_a]
-    sents_b_n = [normalize_text(x) for x in sents_b]
+    normalized_sentences_a = [(sentence, normalize_text(sentence)) for sentence in sents_a]
+    normalized_sentences_b = [(sentence, normalize_text(sentence)) for sentence in sents_b]
+    normalized_sentences_a = [(raw, normalized) for raw, normalized in normalized_sentences_a if normalized]
+    normalized_sentences_b = [(raw, normalized) for raw, normalized in normalized_sentences_b if normalized]
+    sents_a = [raw for raw, _ in normalized_sentences_a]
+    sents_b = [raw for raw, _ in normalized_sentences_b]
+    sents_a_n = [normalized for _, normalized in normalized_sentences_a]
+    sents_b_n = [normalized for _, normalized in normalized_sentences_b]
 
     XS = vectorizer.fit_transform(sents_a_n + sents_b_n)
     XA = XS[: len(sents_a)]

@@ -2,6 +2,9 @@
 from __future__ import annotations
 
 import io
+import time
+from pydantic import BaseModel
+from typing import Optional
 from fastapi import FastAPI, UploadFile, File, HTTPException
 from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
@@ -19,6 +22,11 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+
+class TextComparisonRequest(BaseModel):
+    text_a: Optional[str] = None
+    text_b: Optional[str] = None
 
 
 async def extract_text_from_upload(upload: UploadFile) -> str:
@@ -54,11 +62,24 @@ async def compare(file_a: UploadFile = File(...), file_b: UploadFile = File(...)
     if not text_a.strip() or not text_b.strip():
         raise HTTPException(status_code=400, detail="Um ou ambos os arquivos estão vazios ou não contêm texto extraível.")
 
-    result = compare_texts_tfidf_cosine(text_a, text_b)
+    return build_comparison_response(text_a, text_b)
+
+
+def build_comparison_response(text_a: str, text_b: str) -> JSONResponse:
+    if not text_a.strip() or not text_b.strip():
+        raise HTTPException(status_code=400, detail="Os dois textos são obrigatórios e não podem estar vazios.")
+
+    started_at = time.perf_counter()
+    try:
+        result = compare_texts_tfidf_cosine(text_a, text_b)
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+    processing_time_ms = (time.perf_counter() - started_at) * 1000
 
     payload = {
         "similarity_0_1": round(result.similarity_0_1, 6),
         "similarity_percent": round(result.similarity_percent, 2),
+        "processing_time_ms": round(processing_time_ms, 3),
         "top_terms_a": [{"term": t, "weight": round(w, 6)} for t, w in result.top_terms_a],
         "top_terms_b": [{"term": t, "weight": round(w, 6)} for t, w in result.top_terms_b],
         "top_sentence_pairs": [
@@ -74,3 +95,10 @@ async def compare(file_a: UploadFile = File(...), file_b: UploadFile = File(...)
         ],
     }
     return JSONResponse(payload)
+
+
+@app.post("/compare/texts")
+async def compare_texts(payload: TextComparisonRequest):
+    if not payload.text_a or not payload.text_b or not payload.text_a.strip() or not payload.text_b.strip():
+        raise HTTPException(status_code=400, detail="Os campos text_a e text_b são obrigatórios e não podem estar vazios.")
+    return build_comparison_response(payload.text_a, payload.text_b)
