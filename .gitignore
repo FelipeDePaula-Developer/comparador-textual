@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.egg-info/
+
+# Node / Next.js
+node_modules/
+.next/
+out/
+*.tsbuildinfo
+
+# Ambiente
+.env
+.env.local
+.env.production
+
+# IDEs
+.idea/
+.vscode/
+
+# Sistema
+Thumbs.db
+.DS_Store
+
+# Arquivos de build
+dist/
+build/

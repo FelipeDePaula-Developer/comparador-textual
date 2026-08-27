@@ -7,6 +7,8 @@ import { cn } from "@/lib/utils"
 
 interface SimilarityResultProps {
   percentage: number | null
+  decimal?: number | null
+  processingTimeMs?: number | null
   isLoading?: boolean
   onViewDetails?: () => void
 }
@@ -39,6 +41,8 @@ function getSimilarityLevel(percentage: number): {
 
 export function SimilarityResult({
   percentage,
+  decimal = null,
+  processingTimeMs = null,
   isLoading = false,
   onViewDetails,
 }: SimilarityResultProps) {
@@ -121,6 +125,16 @@ export function SimilarityResult({
             >
               {similarityLevel.label}
             </div>
+            {decimal !== null && (
+              <p className="text-sm text-muted-foreground">
+                Decimal: {decimal.toFixed(6)}
+              </p>
+            )}
+            {processingTimeMs !== null && (
+              <p className="text-sm text-muted-foreground">
+                Tempo de processamento: {processingTimeMs.toFixed(3)} ms
+              </p>
+            )}
           </div>
         ) : (
           <div className="flex flex-col items-center gap-2 py-6 text-center">

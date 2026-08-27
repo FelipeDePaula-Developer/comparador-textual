@@ -1,0 +1,42 @@
+[
+  {
+    "caso": "caso_1",
+    "arquivo_a": "C:\\Users\\fepsi\\PycharmProjects\\comparador-textual\\textos_teste\\caso_1\\textoA.txt",
+    "arquivo_b": "C:\\Users\\fepsi\\PycharmProjects\\comparador-textual\\textos_teste\\caso_1\\textoB.txt",
+    "similarity_0_1": 0.9999999999999993,
+    "similarity_percent": 99.99999999999993,
+    "processing_time_ms": 4.531
+  },
+  {
+    "caso": "caso_2",
+    "arquivo_a": "C:\\Users\\fepsi\\PycharmProjects\\comparador-textual\\textos_teste\\caso_2\\textoA.txt",
+    "arquivo_b": "C:\\Users\\fepsi\\PycharmProjects\\comparador-textual\\textos_teste\\caso_2\\textoB.txt",
+    "similarity_0_1": 0.1416962656899123,
+    "similarity_percent": 14.16962656899123,
+    "processing_time_ms": 3.894
+  },
+  {
+    "caso": "caso_3",
+    "arquivo_a": "C:\\Users\\fepsi\\PycharmProjects\\comparador-textual\\textos_teste\\caso_3\\textoA.txt",
+    "arquivo_b": "C:\\Users\\fepsi\\PycharmProjects\\comparador-textual\\textos_teste\\caso_3\\textoB.txt",
+    "similarity_0_1": 0.14895648817347373,
+    "similarity_percent": 14.895648817347373,
+    "processing_time_ms": 2.926
+  },
+  {
+    "caso": "caso_4",
+    "arquivo_a": "C:\\Users\\fepsi\\PycharmProjects\\comparador-textual\\textos_teste\\caso_4\\textoA.txt",
+    "arquivo_b": "C:\\Users\\fepsi\\PycharmProjects\\comparador-textual\\textos_teste\\caso_4\\textoB.txt",
+    "similarity_0_1": 0.07253579957450197,
+    "similarity_percent": 7.253579957450198,
+    "processing_time_ms": 2.954
+  },
+  {
+    "caso": "caso_5",
+    "arquivo_a": "C:\\Users\\fepsi\\PycharmProjects\\comparador-textual\\textos_teste\\caso_5\\textoA.txt",
+    "arquivo_b": "C:\\Users\\fepsi\\PycharmProjects\\comparador-textual\\textos_teste\\caso_5\\textoB.txt",
+    "similarity_0_1": 0.9534946033571062,
+    "similarity_percent": 95.34946033571062,
+    "processing_time_ms": 2.676
+  }
+]
